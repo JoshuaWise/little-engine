@@ -38,11 +38,9 @@ export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
 
 > The `root` variable is your custom element's [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), which hides everything inside it from the outside world.
 
-#### "Wow, that's a lot of code for such a simple component! I think I'll use React instead!"
+#### "Wow, that's a lot of code for such a simple component!"
 
-Go ahead! Little Engine is for people who want complete control over their code. Some day, you may run into a situation where you'll need to directly manipulate the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), or use one of the very powerful and modern [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) (which most frameworks seem to have forgotten about). When that day comes, you'll try your best, but only to realize that React is frantically replacing your elements out from under your feet, deleting elements and adding new ones, making it basically impossible to have a predictable document structure. That's the moment when you'll realize you're not actually in control of your application—React is.
-
-Anyway, the `MyElement` example above can be greatly shortend with [jQuery](https://jquery.com/) (*gasp!*).
+Little Engine is not a full-service framework. It just provides a solid foundation for defining custom elements. Feel free to bring whatever tools you like to make your code more expressive. The `MyElement` example above can be greatly shortend with [jQuery](https://jquery.com/) (*gasp!*).
 
 ## Why use Little Engine instead `<insert framework here>`?
 
