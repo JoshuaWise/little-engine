@@ -142,7 +142,7 @@ LittleEngine.define('my-element', (root, refresh) => {
 
 ## Defining mutations on your Custom Element
 
-Sometimes, you'll want to allow external JavaScript code to modify the state of your custom element. LittleEngine supports this by allowing you to define *mutations*. These are literally just methods that are placed under a common namespace, to prevent you from accidentally overriding a method that already exists on [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
+Sometimes, you'll want to allow external JavaScript code to modify the state of your custom element. LittleEngine supports this by allowing you to define *mutations*. These are actually just methods that are placed under a common namespace, to prevent you from accidentally overriding a method that already exists on [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
