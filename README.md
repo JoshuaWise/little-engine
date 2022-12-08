@@ -182,7 +182,7 @@ It's common for an HTML element to accept certain attributes which modify its be
 
 The [`data-*`](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) attributes are technically reserved for the _consumers_ of your custom element, so you can't use those either. Other frameworks have chosen to prefix all of their custom attributes with a common prefix (for example, `ng-*` in [Angular](https://angular.io/)). This seems like the best option, since it reduces the surface area of potential namespace collisions from `infinity` to `1`.
 
-Therefore, Little Engine allows you to define custom attributes under the namespace `opt-*`, which is short for "option".
+Therefore, Little Engine allows you to define custom attributes under the namespace `opt-*`, which is short for "option". You can return option handers from your constructor function to be notified when an `opt-*` attribute changes.
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
