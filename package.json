@@ -1,7 +1,7 @@
 {
 	"name": "little-engine",
 	"version": "1.0.0",
-	"description": "Minimal foundation for building composable Custom HTML Elements",
+	"description": "A minimal foundation for building composable Custom HTML Elements",
 	"author": "Joshua Wise <joshuathomaswise@gmail.com>",
 	"license": "MIT",
 	"main": "dist/index.js",
