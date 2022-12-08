@@ -15,7 +15,6 @@ export type ScheduleRefresh = () => void;
 export type RefreshFunction<T> = (getState: GetState) => T;
 export type MutationFunction = (...args: unknown[]) => unknown;
 export type OptionHandler = (value: string | null) => void;
-export type SlotHandler = (nodes: ReadonlyArray<Node>) => void;
 export type GetState = <T>(element: LittleEngine<T>) => T;
 
 // A function used to define a LittleEngine subclass (i.e., new custom element).
@@ -36,8 +35,6 @@ export interface LittleEngineDefinition<
 	refresh: RefreshFunction<TState>;
 	mutations?: TMutations;
 	options?: Record<string, OptionHandler>;
-	slots?: Record<string, SlotHandler>;
-	slot?: SlotHandler;
 }
 
 // All LittleEngines derive from this abstract class.
@@ -86,7 +83,6 @@ export abstract class LittleEngine<
 				setup.refreshFunction(this, definition.refresh);
 				setup.mutationInterface(this, definition.mutations);
 				const cb = setup.optionHandlers(this, definition.options);
-				setup.slotHandlers(this[SHADOW_ROOT], definition.slots, definition.slot);
 
 				// Finally, notify option handlers of any initial attributes.
 				cb && cb();

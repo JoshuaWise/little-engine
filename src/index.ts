@@ -6,7 +6,6 @@ import {
 	RefreshFunction,
 	MutationFunction,
 	OptionHandler,
-	SlotHandler,
 	GetState,
 	isSupported,
 } from './little-engine.js';
@@ -19,7 +18,6 @@ export {
 	RefreshFunction,
 	MutationFunction,
 	OptionHandler,
-	SlotHandler,
 	GetState,
 	isSupported,
 };

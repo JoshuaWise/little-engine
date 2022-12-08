@@ -4,7 +4,6 @@ import {
 	RefreshFunction,
 	MutationFunction,
 	OptionHandler,
-	SlotHandler,
 	REFRESH,
 	MUTATE,
 	STATE,
@@ -102,42 +101,6 @@ export function optionHandlers(
 	return null;
 }
 
-export function slotHandlers(
-	shadowRoot: ShadowRoot,
-	slots: Readonly<Record<string, SlotHandler>> | undefined,
-	slot: SlotHandler | undefined
-): void {
-	if (slots == undefined && slot == undefined) {
-		return;
-	}
-
-	const slotHandlers: Map<string, SlotHandler> = new Map();
-
-	if (slots != undefined) {
-		for (const slotName of Object.keys(slots)) {
-			const slotHandler = slots[slotName];
-
-			if (typeof slotHandler !== 'function') {
-				throw new TypeError(`LittleEngine "${shadowRoot.host.tagName.toLowerCase()}" slot handler "${slotName}" must be a function`);
-			}
-
-			slotHandlers.set(slotName, slotHandler);
-		}
-	}
-
-	if (slot != undefined) {
-		if (typeof slot !== 'function') {
-			throw new TypeError(`LittleEngine "${shadowRoot.host.tagName.toLowerCase()}" slot handler must be a function`);
-		}
-
-		slotHandlers.set('', slot);
-	}
-
-	if (slotHandlers.size) {
-		shadowRoot.addEventListener('slotchange', createSlotCallback(slotHandlers));
-	}
-}
-
 const REFRESH_STACK: LittleEngine[] = [];
 function createStateGetter(self: LittleEngine) {
 	return function getState<T>(element: LittleEngine<T>) {
@@ -178,16 +141,6 @@ function createOptionCallback(
 		for (const { attributeName } of records) {
 			const handler = handlers.get(attributeName!)!;
 			handler(self.getAttribute(attributeName!));
-		}
-	};
-}
-
-function createSlotCallback(handlers: ReadonlyMap<string, SlotHandler>) {
-	return (event: Event) => {
-		const slot = event.target as HTMLSlotElement;
-		const handler = handlers.get(slot.name);
-		if (handler !== undefined) {
-			handler(slot.assignedNodes());
 		}
 	};
 }
