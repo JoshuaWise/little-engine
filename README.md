@@ -169,7 +169,7 @@ LittleEngine.define('my-element', (root, refresh) => {
 
 Mutations are accessed from the `mutate` property of your custom element, as shown below.
 
-```
+```js
 const myElement = document.createElement('my-element');
 myElement.mutate.increment();
 ```
@@ -182,7 +182,7 @@ It's common for an HTML element to accept certain attributes which modify its be
 
 The [`data-*`](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) attributes are technically reserved for the _consumers_ of your custom element, so you can't use those either. Other frameworks have chosen to prefix all of their custom attributes with a common prefix (for example, `ng-*` in [Angular](https://angular.io/)). This seems like the best option, since it reduces the surface area of potential namespace collisions from `infinity` to `1`.
 
-Therefore, Little Engine allows you to define custom attributes under the namespace `opt-*`, which is short for "option". It's intuitive that attributes on an element can be seen as *options* passed to a function (hello React).
+Therefore, Little Engine allows you to define custom attributes under the namespace `opt-*`, which is short for "option".
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
@@ -204,6 +204,10 @@ LittleEngine.define('my-element', (root, refresh) => {
         }
     };
 });
+
+document.body.innerHTML = `
+	<my-element opt-color="red"></my-element>
+`;
 ```
 
 In the example above, the `color()` function will be invoked whenever the `opt-color` attribute changes on the custom element. If the element is created with the attribute already present (e.g., `<my-element opt-color="red"></my-element>`), or if the attribute is added within the constructor function, then the `color()` function will be invoked immediately after the constructor returns. If the attribute is deleted, the `color()` function will be invoked with `null` as its argument.
