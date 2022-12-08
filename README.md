@@ -252,10 +252,10 @@ In Little Engine, you define your public state by **returning** it from the `ref
 
 ```js
 return {
-	refresh() {
-		// ... do render-related things
-		return myPublicState;
-	}
+    refresh() {
+        // ... do render-related things
+        return myPublicState;
+    }
 };
 ```
 
@@ -270,9 +270,9 @@ LittleEngine.define('my-element', (root, refresh) => {
     return {
         refresh(getState) {
             for (const child of slot.assignedElements()) {
-            	if (child instanceof LittleEngine) {
-            		console.log(getState(child));
-            	}
+                if (child instanceof LittleEngine) {
+                    console.log(getState(child));
+                }
             }
         }
     };
