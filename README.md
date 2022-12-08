@@ -210,7 +210,7 @@ document.body.innerHTML = `
 `;
 ```
 
-In the example above, the `color()` function will be invoked whenever the `opt-color` attribute changes on the custom element. If the element is created with the attribute already present (e.g., `<my-element opt-color="red"></my-element>`), or if the attribute is added within the constructor function, then the `color()` function will be invoked immediately after the constructor returns. If the attribute is deleted, the `color()` function will be invoked with `null` as its argument.
+In the example above, the `color()` function will be invoked whenever the `opt-color` attribute changes on the custom element. If the element is created with the attribute already present (e.g., `<my-element opt-color="blue"></my-element>`), or if the attribute is added within the constructor function, then the `color()` function will be invoked immediately after the constructor returns. If the attribute is deleted, the `color()` function will be invoked with `null` as its argument.
 
 ## Managing state in your Custom Element
 
