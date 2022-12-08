@@ -14,25 +14,25 @@ npm install little-engine
 import LittleEngine from 'little-engine';
 
 export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
-	root.innerHTML = `
-		<button>Click me!</button>
-		<div>The current value is: <span></span></div>
-	`;
+    root.innerHTML = `
+        <button>Click me!</button>
+        <div>The current value is: <span></span></div>
+    `;
 
-	const button = root.querySelector('button');
-	const span = root.querySelector('span');
-	let currentValue = 0;
+    const button = root.querySelector('button');
+    const span = root.querySelector('span');
+    let currentValue = 0;
 
-	button.addEventListener('click', () => {
-		currentValue += 1;
-		refresh();
-	});
+    button.addEventListener('click', () => {
+        currentValue += 1;
+        refresh();
+    });
 
-	return {
-		refresh() {
-			span.textContent = currentValue;
-		}
-	};
+    return {
+        refresh() {
+            span.textContent = currentValue;
+        }
+    };
 });
 ```
 
@@ -42,7 +42,7 @@ export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
 
 Little Engine is not a full-service framework. It just provides a solid foundation for defining custom elements. Feel free to bring whatever tools you like to make your code more expressive. The `MyElement` example above can be greatly shortend with [jQuery](https://jquery.com/) (*gasp!*).
 
-## Why use Little Engine instead `<insert framework here>`?
+## Why use Little Engine instead of `<insert framework here>`?
 
 - **Build smart.** Little Engine provides a simple foundation for creating reusable components. Even without a framework, that's definitely something you want.
 - **Build anything.** Frameworks are designed with specific use-cases in mind. Even [React](https://reactjs.org/) is poorly suited for many kinds of applications which require manual DOM manipulation. When you choose a framework, you lock yourself in to the use-cases of its creators. When you use Little Engine, you work directly with the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), so you can do whatever you need to do, without fighting against someone else's philosophy.
@@ -70,7 +70,7 @@ Use `LittleEngine.define` to define a custom element. It returns a subclass of `
 import LittleEngine from 'little-engine';
 
 export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
-	// ...
+    // ...
 });
 ```
 
@@ -82,14 +82,14 @@ In your constructor function, you'll typically add some elements to the `ShadowR
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
-	const button = document.createElement('button');
-	root.appendChild(button);
+    const button = document.createElement('button');
+    root.appendChild(button);
 
-	button.addEventListener('click', () => {
-		doSomething();
-	});
+    button.addEventListener('click', () => {
+        doSomething();
+    });
 
-	// ...
+    // ...
 });
 ```
 
@@ -99,14 +99,14 @@ Your constructor function must return a `refresh()` function, which is responsib
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
-	const div = document.createElement('div');
-	root.appendChild(div);
+    const div = document.createElement('div');
+    root.appendChild(div);
 
-	return {
-		refresh() {
-			div.textContent = `Your lucky number is ${Math.random()}!`;
-		}
-	};
+    return {
+        refresh() {
+            div.textContent = `Your lucky number is ${Math.random()}!`;
+        }
+    };
 });
 ```
 
@@ -118,25 +118,25 @@ Luckily, it's extremely easy to schedule a re-render: simply call the `refresh()
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
-	root.innerHTML = `
-		<button>Click me!</button>
-		<div>The current value is: <span></span></div>
-	`;
+    root.innerHTML = `
+        <button>Click me!</button>
+        <div>The current value is: <span></span></div>
+    `;
 
-	const button = root.querySelector('button');
-	const span = root.querySelector('span');
-	let currentValue = 0;
+    const button = root.querySelector('button');
+    const span = root.querySelector('span');
+    let currentValue = 0;
 
-	button.addEventListener('click', () => {
-		currentValue += 1;
-		refresh(); // Schedule a refresh to happen soon.
-	});
+    button.addEventListener('click', () => {
+        currentValue += 1;
+        refresh(); // Schedule a refresh to happen soon.
+    });
 
-	return {
-		refresh() {
-			span.textContent = currentValue;
-		}
-	};
+    return {
+        refresh() {
+            span.textContent = currentValue;
+        }
+    };
 });
 ```
 
@@ -146,24 +146,24 @@ Sometimes, you'll want to allow external JavaScript code to modify the state of 
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
-	root.innerHTML = `
-		<div>The current value is: <span></span></div>
-	`;
+    root.innerHTML = `
+        <div>The current value is: <span></span></div>
+    `;
 
-	const span = root.querySelector('span');
-	let currentValue = 0;
+    const span = root.querySelector('span');
+    let currentValue = 0;
 
-	return {
-		refresh() {
-			span.textContent = currentValue;
-		},
-		mutations: {
-			increment() {
-				currentValue += 1;
-				refresh();
-			}
-		}
-	};
+    return {
+        refresh() {
+            span.textContent = currentValue;
+        },
+        mutations: {
+            increment() {
+                currentValue += 1;
+                refresh();
+            }
+        }
+    };
 });
 ```
 
@@ -186,23 +186,23 @@ Therefore, Little Engine allows you to define custom attributes under the namesp
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
-	const div = document.createElement('div');
-	div.textContent = 'Hello world!';
-	root.appendChild(div);
+    const div = document.createElement('div');
+    div.textContent = 'Hello world!';
+    root.appendChild(div);
 
-	let color = 'red';
+    let color = 'red';
 
-	return {
-		refresh() {
-			div.style.color = color;
-		},
-		options: {
-			color(value) {
-				color = value;
-				refresh();
-			}
-		}
-	};
+    return {
+        refresh() {
+            div.style.color = color;
+        },
+        options: {
+            color(value) {
+                color = value;
+                refresh();
+            }
+        }
+    };
 });
 ```
 
@@ -220,25 +220,25 @@ For any good abstraction, the goal is to hide complex details and expose a simpl
 
 ```js
 LittleEngine.define('my-element', (root, refresh) => {
-	root.innerHTML = `
-		<button>Click me!</button>
-		<div>The current value is: <span></span></div>
-	`;
+    root.innerHTML = `
+        <button>Click me!</button>
+        <div>The current value is: <span></span></div>
+    `;
 
-	const button = root.querySelector('button');
-	const span = root.querySelector('span');
-	let currentValue = 0;
+    const button = root.querySelector('button');
+    const span = root.querySelector('span');
+    let currentValue = 0;
 
-	button.addEventListener('click', () => {
-		currentValue += 1;
-		refresh();
-	});
+    button.addEventListener('click', () => {
+        currentValue += 1;
+        refresh();
+    });
 
-	return {
-		refresh() {
-			span.textContent = currentValue;
-		}
-	};
+    return {
+        refresh() {
+            span.textContent = currentValue;
+        }
+    };
 });
 ```
 
@@ -254,63 +254,63 @@ We'll tie all of this together to implement a form from scratch, called `<bigint
 import LittleEngine from 'little-engine';
 
 const BigintInput = LittleEngine.define('bigint-input', (root, refresh) => {
-	root.innerHTML = `
-		<style>
-			[role="input"] {
-				display: inline-flex;
-				align-items: center;
-				min-width: 10ch;
-				padding: 0.5ch 1ch;
-				box-shadow: 0.5px 0.5px 3px 0px rgb(40 40 40 / 75%);
-			}
-		</style>
-		<div role="input" contenteditable>0</div>
-	`;
+    root.innerHTML = `
+        <style>
+            [role="input"] {
+                display: inline-flex;
+                align-items: center;
+                min-width: 10ch;
+                padding: 0.5ch 1ch;
+                box-shadow: 0.5px 0.5px 3px 0px rgb(40 40 40 / 75%);
+            }
+        </style>
+        <div role="input" contenteditable>0</div>
+    `;
 
-	const input = root.querySelector('[role="input"]');
-	input.addEventListener('input', refresh);
+    const input = root.querySelector('[role="input"]');
+    input.addEventListener('input', refresh);
 
-	return {
-		refresh() {
-			const value = input.textContent.replace(/[^\d]/g, '');;
-			input.textContent = value;
-			return BigInt(value);
-		}
-	};
+    return {
+        refresh() {
+            const value = input.textContent.replace(/[^\d]/g, '');;
+            input.textContent = value;
+            return BigInt(value);
+        }
+    };
 });
 
 const BigintForm = LittleEngine.define('bigint-form', (root, refresh) => {
-	root.innerHTML = `
-		<div>Total sum = <span></span></div>
-		<div><slot></slot></div>
-	`;
+    root.innerHTML = `
+        <div>Total sum = <span></span></div>
+        <div><slot></slot></div>
+    `;
 
-	const span = root.querySelector('span');
-	const slot = root.querySelector('slot');
-	slot.addEventListener('refresh', refresh);
+    const span = root.querySelector('span');
+    const slot = root.querySelector('slot');
+    slot.addEventListener('refresh', refresh);
 
-	return {
-		refresh(getState) {
-			let sum = 0n;
+    return {
+        refresh(getState) {
+            let sum = 0n;
 
-			for (const el of slot.assignedElements()) {
-				if (el instanceof BigintInput) {
-					sum += getState(el);
-				}
-			}
+            for (const el of slot.assignedElements()) {
+                if (el instanceof BigintInput) {
+                    sum += getState(el);
+                }
+            }
 
-			span.textContent = String(sum);
+            span.textContent = String(sum);
 
-			return sum;
-		}
-	};
+            return sum;
+        }
+    };
 });
 ```
 
 ```html
 <bigint-form>
-	<bigint-input></bigint-input>
-	<bigint-input></bigint-input>
+    <bigint-input></bigint-input>
+    <bigint-input></bigint-input>
 </bigint-form>
 ```
 
