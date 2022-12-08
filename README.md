@@ -206,7 +206,7 @@ LittleEngine.define('my-element', (root, refresh) => {
 });
 
 document.body.innerHTML = `
-	<my-element opt-color="red"></my-element>
+    <my-element opt-color="blue"></my-element>
 `;
 ```
 
