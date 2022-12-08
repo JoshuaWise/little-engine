@@ -377,13 +377,13 @@ In Little Engine, each little component is capable of making its own decisions. 
 
 In general, you should do all calculation within the `refresh()` function. If you split up your logic between event handlers, you end up with spaghetti code. In most cases, your event handlers should do basically nothing except mutate some internal state and/or call `refresh()`. Mutations and `opt-*` attributes are the same: they are for mutating internal state, not for doing calculations. If you keep all calculations within `refresh()`, your component will always have a consistent public state and a consistent render on screen.
 
-> "But wait, if I have to recalculate everything every time my component renders, won't that be slow?" Maybe! But probably not. Doing multiple DOM manipulations for a single component isn't going to kill you. Computers are fast these days, and browsers are fast. What usually causes problems is when tons of components all render at the same time, even though they don't really need to (like in all those "reactive" frameworks). Little Engine gives you total control over when your component renders, so you can avoid that problem. Take control over your code, brave one! Only YOU can stop unnecessary renders! Anyway, if necessary, you can still implement the same tricks you do in frameworks like React (e.g., memoization).
-
 In summary:
 - Mutations, event listeners, and `opt-*` attributes are for _accepting_ incoming information.
 - The `refresh()` function is for _digesting_ all current information, updating the screen, and calculating the current public state.
 
 If you follow these guidelines, your components will always be in a consistent state after each refresh, and ancestor components can use their state for making accurate decisions.
+
+> "But wait, if I have to recalculate everything every time my component renders, won't that be slow?" Maybe! But probably not. Doing multiple DOM manipulations for a single component isn't going to kill you. Computers are fast these days, and browsers are fast. What usually causes problems is when tons of components all render at the same time, even though they don't really need to (like in all those "reactive" frameworks). Little Engine gives you total control over when your component renders, so you can avoid that problem. Take control over your code, brave one! Only YOU can stop unnecessary renders! Anyway, if necessary, you can still implement the same tricks you do in frameworks like React (e.g., memoization).
 
 Also note that you're not `required` to return data from `refresh()`, or use the `refresh` event at all. You're free to [dispatch](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent) your own custom events when needed. And this can actually be a great practice! I know you've been trained by React to constantly repeat yourself by passing the same damn callback to every damn component in a hierarchy, but don't be gloomy: we've had the much more powerful [event bubbling](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling) system forever!
 
