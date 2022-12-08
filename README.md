@@ -38,7 +38,7 @@ export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
 
 > The `root` variable is your custom element's [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), which hides everything inside it from the outside world.
 
-##### "Wow, that's a lot of code for such a simple component!"
+#### "Wow, that's a lot of code for such a simple component!"
 
 Little Engine is not a full-service framework. It just provides a solid foundation for defining custom elements. Feel free to bring whatever tools you like to make your code more expressive. The `MyElement` example above can be greatly shortend with [jQuery](https://jquery.com/) (*gasp!*).
 
