@@ -38,7 +38,7 @@ export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
 
 > The `root` variable is your custom element's [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), which hides everything inside it from the outside world.
 
-#### "Wow, that's a lot of code for such a simple component!"
+### "Wow, that's a lot of code for such a simple component!"
 
 Little Engine is not a full-service framework. It just provides a solid foundation for defining custom elements. Feel free to bring whatever tools you like to make your code more expressive. The `MyElement` example above can be greatly shortend with [jQuery](https://jquery.com/) (*gasp!*).
 
@@ -60,9 +60,9 @@ Little Engine is not a full-service framework. It just provides a solid foundati
 - Lies to you by suggesting that by using THIS framework, you'll never have to worry about performance!
 - Vendor-locks you into one system that you can't escape until it's too late.
 
-## Docs
+# Docs
 
-### Defining a Custom Element
+## Defining a Custom Element
 
 Use `LittleEngine.define` to define a custom element. It returns a subclass of `LittleEngine`, which is a subclass of [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). The custom element is automatically registered using the given tag name. Note that per the Web Component standards, custom elements must contain a dash (`-`) in their name.
 
@@ -76,7 +76,7 @@ export const MyElement = LittleEngine.define('my-element', (root, refresh) => {
 
 The function passed to `LittleEngine.define` acts as the constructor function for your custom element. The `root` parameter is your element's [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot). Anything inside the `ShadowRoot` is hidden from the outside world.
 
-### Setting up your Custom Element
+## Setting up your Custom Element
 
 In your constructor function, you'll typically add some elements to the `ShadowRoot`, which could be done manually with `document.createElement` or `root.innerHTML`, or with your templating engine of choice (even JSX! But that's your responsibility). You'll also typically add [event listeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener). For complex components, we recommend using [event delegation](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_delegation), so your listeners are immune to underlying changes in the DOM (not shown below).
 
@@ -93,7 +93,7 @@ LittleEngine.define('my-element', (root, refresh) => {
 });
 ```
 
-### Rendering your Custom Element
+## Rendering your Custom Element
 
 Your constructor function must return a `refresh()` function, which is responsible for updating your component visually. The `refresh()` function is automatically called when your custom element is attached to [the document](https://developer.mozilla.org/en-US/docs/Web/API/Document), and is never called when your element is detached from the document.
 
@@ -140,7 +140,7 @@ LittleEngine.define('my-element', (root, refresh) => {
 });
 ```
 
-### Defining mutations on your Custom Element
+## Defining mutations on your Custom Element
 
 Sometimes, you'll want to allow external JavaScript code to modify the state of your custom element. LittleEngine supports this by allowing you to define *mutations*. These are literally just methods that are placed under a common namespace, to prevent you from accidentally overriding a method that already exists on [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
 
@@ -176,7 +176,7 @@ myElement.mutate.increment();
 
 > Note that mutations can return values, so they could technically be used to implement "getters", but it's generally a bad idea to do that (hence why they're called "mutations", and not "methods"). To avoid spaghetti code, it's a good idea to be disciplined about exposing a component's internal state, which we'll discuss more in a later section.
 
-### Defining attributes/options on your Custom Element
+## Defining attributes/options on your Custom Element
 
 It's common for an HTML element to accept certain attributes which modify its behavior. Unfortunately the Web Components standard did not reserve any namespace for us poor developers to actually define our own custom attributes. This is important because if you define a custom attribute called "version" (just as an example), then some day the [WHATWG standards people](https://whatwg.org/) could decide to define a new standard attribute called "version", and now your component is completely broken because browsers will erroneously start implementing new behavior on your component, which you couldn't have anticipated. This is an [open issue for WHATWG](https://github.com/whatwg/html/issues/2271).
 
@@ -208,13 +208,13 @@ LittleEngine.define('my-element', (root, refresh) => {
 
 In the example above, the `color()` function will be invoked whenever the `opt-color` attribute changes on the custom element. If the element is created with the attribute already present (e.g., `<my-element opt-color="red"></my-element>`), or if the attribute is added within the constructor function, then the `color()` function will be invoked immediately after the constructor returns. If the attribute is deleted, the `color()` function will be invoked with `null` as its argument.
 
-### Managing state in your Custom Element
+## Managing state in your Custom Element
 
 Okay! Now we're getting to the good stuff! In case you didn't know, avoiding spaghetti code is all about state management. So if you get this wrong (even if you're using a framework that claims to "solve" state management, LOL), you're screwed.
 
 How does Little Engine do state management? Well, in the end, you have total control over everything, but we _do_ provide a few suggestions and a mental model to work with.
 
-#### Public state verses private state
+### Public state verses private state
 
 For any good abstraction, the goal is to hide complex details and expose a simpler version of what's actually happening. Little Engine is no different. As you've seen from previous examples, you can define whatever _private_ state you want just by using regular old JavaScript variables in the constructor function. Naturally, the outside world can't see that private state. In the example below, `currentValue` is an example of _private state_.
 
@@ -246,7 +246,7 @@ However, it's also important for components to be _composable_, which means larg
 
 In Little Engine, you define your public state by **returning** it from the `refresh()` function. If your component doesn't need to expose any public state, the `refresh()` function doesn't need to return anything. A component can use the public state of its descendants by using the `getState()` function, which is provided as an argument to the `refresh()` function. Ancestor components can be notified of state changes in their descendants by listening for the `refresh` event, which is automatically emitted when a `LittleEngine` refreshes.
 
-#### An example of using public state
+### An example of using public state
 
 We'll tie all of this together to implement a form from scratch, called `<bigint-form>`, and an input-like element called `<bigint-input>`.
 
@@ -324,7 +324,7 @@ Note that we're not *required* to update the form every time an input is updated
 
 For more complex elements, the public state will generally be an object containing multiple fields. There's no restriction on what kind of value you can return from `refresh()`.
 
-#### This feels weird... We're passing state... up??
+### This feels weird... We're passing state... up??
 
 Yup! If you've ever used React, this seems like the exact oppsite of what you're used to. In React, state is passed _down_, from parent to child. With Little Engine, state is passed _up_ from child to parent. Why? Because we're rebels!! No, actually, there is a very good reason.
 
@@ -340,7 +340,7 @@ In Little Engine, each little component is capable of making its own decisions. 
 
 > To be specific... Little components "report" back to their bosses by using public state (returning data from `refresh()`). The boss components use the aggregated information via `getState()`, and they dispatch communication and delegate tasks to other little components by calling mutations and settings `opt-*` attributes).
 
-#### How to achieve consistency
+## How to achieve consistency
 
 In general, you should do all calculation within the `refresh()` function. If you split up your logic between event handlers, you end up with spaghetti code. In most cases, your event handlers should do basically nothing except mutate some internal state or call `refresh()`. Mutations and `opt-*` attributes are the same: they are for mutating internal state, not for doing calculations. If you keep all calculations within `refresh()`, your component will always have a consistent public state and a consistent render on screen.
 
