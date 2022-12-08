@@ -248,7 +248,36 @@ LittleEngine.define('my-element', (root, refresh) => {
 
 However, it's also important for components to be _composable_, which means larger components can use smaller components to do more complex things. Therefore, the larger component needs access to some _state_ from the smaller component. This is where _public_ state comes in.
 
-In Little Engine, you define your public state by **returning** it from the `refresh()` function. If your component doesn't need to expose any public state, the `refresh()` function doesn't need to return anything. A component can use the public state of its descendants by using the `getState()` function, which is provided as an argument to the `refresh()` function. Ancestor components can be notified of state changes in their descendants by listening for the `refresh` event, which is automatically emitted when a `LittleEngine` refreshes.
+In Little Engine, you define your public state by **returning** it from the `refresh()` function. If your component doesn't need to expose any public state, the `refresh()` function doesn't need to return anything.
+
+```js
+return {
+	refresh() {
+		// ... do render-related things
+		return myPublicState;
+	}
+};
+```
+
+A component can use the public state of its descendants by using the `getState()` function, which is provided as an argument to the `refresh()` function. Components can be notified of state changes in their descendants by listening for the `refresh` event, which is automatically emitted when a `LittleEngine` refreshes.
+
+```js
+LittleEngine.define('my-element', (root, refresh) => {
+    const slot = document.createElement('slot');
+    slot.addEventListener('refresh', refresh);
+    root.appendChild(slot);
+
+    return {
+        refresh(getState) {
+            for (const child of slot.assignedElements()) {
+            	if (child instanceof LittleEngine) {
+            		console.log(getState(child));
+            	}
+            }
+        }
+    };
+});
+```
 
 ### An example of using public state
 
