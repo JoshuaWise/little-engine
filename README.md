@@ -281,7 +281,7 @@ LittleEngine.define('my-element', (root, refresh) => {
 
 ### An example of using public state
 
-We'll tie all of this together to implement a form from scratch, called `<bigint-form>`, and an input-like element called `<bigint-input>`.
+We'll tie all of this together to implement a form element from scratch, called `<bigint-form>`, and an input-like element called `<bigint-input>`.
 
 ```js
 import LittleEngine from 'little-engine';
