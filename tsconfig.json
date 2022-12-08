@@ -1,0 +1,20 @@
+{
+	"include": ["./src"],
+	"compilerOptions": {
+		"outDir": "./dist",
+		"target": "es2017",
+		"lib": ["es2017", "dom", "dom.iterable"],
+		"module": "es2020",
+		"moduleResolution": "node",
+		"declaration": true,
+		"sourceMap": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"exactOptionalPropertyTypes": true,
+		"forceConsistentCasingInFileNames": true
+	}
+}
