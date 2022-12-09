@@ -8,6 +8,7 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"test": "jest",
+		"benchmark": "webpack && open benchmark/index.html",
 		"prepare": "tsc && webpack",
 		"watch": "tsc --watch",
 		"clean": "rm -rf node_modules dist"

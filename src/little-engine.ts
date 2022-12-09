@@ -149,10 +149,6 @@ export abstract class LittleEngine<
 	protected disconnectedCallback() {
 		if (!isLittleEngine(this)) return;
 		if (!this[ATTACHED]) return;
-		if (this.isConnected) {
-			// TODO: handle "atomic move" case
-			// TODO: also test "element.replaceWith()" and "element.replaceChildren()"
-		}
 
 		// Whenever a LittleEngine is detached from the document, we have to
 		// find all descendant LittleEngines and synchronously disable their
